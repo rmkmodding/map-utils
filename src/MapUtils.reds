@@ -17,8 +17,9 @@ public native func MapUtils_SetNavPathTypeHidden(type: Int32, hidden: Bool) -> V
 // True if any GPS route line is currently hidden.
 public native func MapUtils_IsNavPathHidden() -> Bool
 
-// Registers the world map controller so its GPS widgets are re-hidden each frame.
-// Its initial line is drawn by a native pull that bypasses the hooks, so without
-// this it would show on first open until a quest is (re)tracked.
-@addMethod(WorldMapMenuGameController)
+// Registers a mappins container (world map or minimap) so its GPS widgets are
+// re-hidden each frame. The initial line is drawn by a native pull that bypasses the
+// hooks, so without this it shows until a quest path is (re)tracked. Declared on the
+// shared base so both the world map and minimap inherit it.
+@addMethod(MappinsContainerController)
 public native func MapUtils_RegisterNavPathContainer() -> Void

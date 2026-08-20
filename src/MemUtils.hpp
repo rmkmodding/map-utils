@@ -45,10 +45,17 @@ inline int32_t ReadI32(const void* aBase, uintptr_t aOffset) noexcept
 }
 
 // Walks the parent chain of aClass looking for aTarget. Max depth 24.
+//
+// Every node is IsReadable-checked before dereference: a class pointer read out of a
+// stale/recycled object can be committed-but-bogus and its parent field can hold a
+// recycled value, so guarding each node fails safe (return false) instead of faulting.
 inline bool DerivesFrom(const RED4ext::CClass* aClass, const RED4ext::CClass* aTarget) noexcept
 {
     for (int i = 0; i < 24 && aClass; ++i)
     {
+        if (!IsReadable(aClass))
+            return false;
+
         if (aClass == aTarget)
             return true;
 
