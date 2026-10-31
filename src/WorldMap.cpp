@@ -29,15 +29,14 @@ void Init(const RED4ext::v1::Sdk* aSdk, RED4ext::v1::PluginHandle aHandle)
 namespace
 {
 
-// Reads the gameuiWorldMapGameObject entity handle at controller+0x128, then walks
+// Reads the gameuiWorldMapGameObject entity handle from the controller, then walks
 // its components for entTargetPointComponent (the pan centre). SEH-guarded; no scan
 // loop, so no AV exceptions in normal operation.
 bool TryDirectAccess(RED4ext::IScriptable* aController, RED4ext::Vector3* aOut) noexcept
 {
     __try
     {
-        // controller+0x128 = Handle<gameuiWorldMapGameObject>.instance
-        void* entity = ReadPtr(aController, 0x128);
+        void* entity = ReadPtr(aController, kWorldMapPreview_MapObject);
         if (!entity || !IsReadable(entity))
             return false;
 

@@ -13,9 +13,12 @@ constexpr float kWorldPosScale = 131072.0f;
 constexpr uintptr_t kIScriptable_NativeType   = 0x30; // CClass* nativeType
 constexpr uintptr_t kCClass_Parent            = 0x10; // CClass* parent
 constexpr uintptr_t kEntity_Components        = 0xA0; // DynArray<Handle<IComponent>>
-constexpr uintptr_t kEntity_ComponentsSize    = 0xA8; // DynArray size (uint32)
+constexpr uintptr_t kEntity_ComponentsSize    = 0xAC; // DynArray size (uint32)
 constexpr uintptr_t kPlaced_LocalTransformPos = 0xC0; // WorldTransform.Position (FixedPoint x/y/z)
 constexpr uintptr_t kHandleStride             = 0x10; // sizeof(Handle<T>)
+
+// Not in the SDK headers (from disassembly of the game's native handlers):
+constexpr uintptr_t kWorldMapPreview_MapObject = 0x138; // Handle<gameuiWorldMapGameObject>.instance (0x128 before patch 2.5)
 
 // Returns true if aPtr points to committed, readable memory.
 inline bool IsReadable(const void* aPtr) noexcept

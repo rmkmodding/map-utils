@@ -20,8 +20,6 @@ RED4EXT_C_EXPORT bool RED4EXT_CALL Main(RED4ext::v1::PluginHandle aHandle,
 
         aSdk->logger->Info(aHandle, "MapUtils: loaded.");
 
-        aSdk->scripts->Add(aHandle, L"MapUtils.reds");
-
         NavPath::AttachHook();
 
         auto* rtti = RED4ext::CRTTISystem::Get();
@@ -42,7 +40,8 @@ RED4EXT_C_EXPORT void RED4EXT_CALL Query(RED4ext::v1::PluginInfo* aInfo)
     aInfo->name    = L"HardcoreMapAndNavigation";
     aInfo->author  = L"RMK";
     aInfo->version = RED4EXT_V1_SEMVER(VER_MAJOR, VER_MINOR, VER_PATCH);
-    aInfo->runtime = RED4EXT_V1_RUNTIME_VERSION_LATEST;
+    // version independent for hotfixes after 2.5
+    aInfo->runtime = RED4EXT_V1_RUNTIME_VERSION_INDEPENDENT;
     aInfo->sdk     = RED4EXT_V1_SDK_VERSION_CURRENT;
 }
 
